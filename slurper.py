@@ -37,12 +37,12 @@ if __name__ == '__main__':
 
     for orgname in orgs:
         url = orgs[orgname]
-        match = re.match('(https://twitter.com|http://twitter.com)/(.*)/(.*)/members', url)
+        match = re.match('(https://twitter.com|http://twitter.com)/(.*)/lists/(.*)/members', url)
         if match:
             twitter_handle = match.group(2)
             twitter_list = match.group(3)
             users = get_users(twitter_handle, twitter_list)
-            with open('data/'+orgname.replace(' ', '')+'.json', 'w') as wfp:
+            with open(orgname.replace(' ', '')+'.json', 'w') as wfp:
                 wfp.write(simplejson.dumps(users, sort_keys=True, indent=4 * ' '))
         else:
             print "Couldn't parse URL: " + url
